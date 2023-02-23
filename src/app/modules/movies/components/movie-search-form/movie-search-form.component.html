@@ -1,0 +1,48 @@
+<mat-card>
+    <mat-card-header>
+        <div mat-card-avatar class="d-flex justify-content-center align-items-center">
+            <mat-icon fontIcon="search"></mat-icon>
+        </div>
+        <mat-card-title>
+            Search Movies
+        </mat-card-title>
+        <mat-card-subtitle>
+            Movies API is provided by <a target="_black" href="http://www.omdbapi.com/">OMDb API</a>
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <form [formGroup]="searchForm">
+            <div class="row">
+                <mat-form-field class="col-xl-4">
+                    <input matInput placeholder="Search by title" formControlName="Title">
+                    <mat-error> Title is required</mat-error>
+                </mat-form-field>
+                <mat-form-field class="col-md-3 col-xl-2">
+                    <mat-label>Show type</mat-label>
+                    <mat-select formControlName="Type">
+                        <mat-option>None</mat-option>
+                        <mat-option *ngFor="let showType of showTypes" [value]="showType">
+                            {{showType | titlecase}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="col-md-3 col-xl-2">
+                    <input matInput placeholder="Release year" formControlName="Year">
+                    <mat-error> Specify valid year in range 1900 - 2099</mat-error>
+                </mat-form-field>
+                <mat-form-field class="col-md-3 col-xl-2">
+                    <mat-label>Plot type</mat-label>
+                    <mat-select formControlName="Plot">
+                        <mat-option *ngFor="let plotType of plotTypes" [value]="plotType">
+                            {{plotType | titlecase}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div class="col-md-3 col-xl-2">
+                    <button mat-raised-button color='primary' (click)='submitForm()'>Search</button>
+                    <button class="ms-3" mat-raised-button (click)='resetForm()'>Reset</button>
+                </div>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

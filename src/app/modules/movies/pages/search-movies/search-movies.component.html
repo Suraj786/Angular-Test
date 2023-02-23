@@ -1,0 +1,143 @@
+<div class="mt-3">
+    <app-movie-search-form></app-movie-search-form>
+    
+    <div class="mt-3">
+        <ng-container [ngSwitch]="shouldDisplayList">
+            <ng-container *ngSwitchCase="false">
+                <h3>Fill in the above form to get result!</h3>
+            </ng-container>
+            <ng-container *ngSwitchCase="true">
+                <ng-container *ngIf="(moviesData$ | async) as moviesResponse">
+                    <ng-container
+                        *ngTemplateOutlet="moviesResponse.Response == 'True' ? displayList : errorResponse; context: {response: moviesResponse}">
+                    </ng-container>
+                </ng-container>
+            </ng-container>
+        </ng-container>
+
+        <ng-template #loading>
+            <app-loading-spinner [loadingText]="'Loading movies...'"></app-loading-spinner>
+        </ng-template>
+
+        <ng-template #displayList>
+            <div class="">
+
+                <div *ngIf="totalMoviesFound" class="animated zoomIn">
+                    <div class="d-flex justify-content-between">
+                        <h2>Search results</h2>
+                        <div class="list-view-buttons-section">
+                            <button mat-mini-fab (click)="resultView('grid')" class="list-view-button" [color]="listView === 'grid' ? 'primary' : 'accent'">
+                                <mat-icon>grid_view</mat-icon>
+                            </button>
+                            <button mat-mini-fab (click)="resultView('list')" class="list-view-button" [color]="listView === 'list' ? 'primary' : 'accent'">
+                                <mat-icon>view_list</mat-icon>
+                            </button>
+                            <button mat-mini-fab (click)="resultView('table')" class="list-view-button" [color]="listView === 'table' ? 'primary' : 'accent'">
+                                <mat-icon>table_view</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <h5>Total movies found: <span style="color: #3f51b5;">{{totalMoviesFound}}</span></h5>
+                    <mat-divider></mat-divider>
+                </div>
+
+                <section *ngIf="listView === 'grid'" class="result-block grid--result-block">
+                    <div class="row gy-3">
+                        <div class="col-sm-6 col-md-4 col-xl-3 col-xxl-2" *ngFor="let movie of movies$ | async">
+                            <mat-card>
+                                <mat-card-header>
+                                    <mat-card-title>{{ movie.Title }}</mat-card-title>
+                                    <!-- Need to create pipe for "2023–".replace(/–/g, '') -->
+                                    <mat-card-subtitle>{{ movie.Year }} | {{ movie.Type | titlecase }} | {{ movie.imdbID }}</mat-card-subtitle>
+                                </mat-card-header>
+                                <img style="cursor: pointer;" (click)="openMovieDetails(movie)" mat-card-image [src]="movie.Poster !== 'N/A' ? movie.Poster : setDefaultPic()" [alt]="movie.Title" (error)="setDefaultPic($event)">
+                            </mat-card>
+                        </div>
+                    </div>
+                </section>
+
+                <section *ngIf="listView === 'list'" class="result-block list--result-block">
+                    <div class="list-block" *ngFor="let movie of movies$ | async">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-4 col-xl-3" >
+                                <img style="cursor: pointer;" (click)="openMovieDetails(movie)" [src]="movie.Poster !== 'N/A' ? movie.Poster : setDefaultPic()" [alt]="movie.Title" (error)="setDefaultPic($event)">
+                            </div>
+                            <div class="col-sm-6 col-md-8 col-xl-9">
+                                <h3>{{ movie.Title }}</h3>
+                                <p><strong>Year: </strong>{{ movie.Year }}</p>
+                                <p><strong>Type: </strong>{{ movie.Type | titlecase }}</p>
+                                <p><strong>IMDB ID: </strong>{{ movie.imdbID }}</p>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="1000" (scrolled)="onDownScroll()">
+                    </div>
+                </section>
+                
+                <section *ngIf="listView === 'table'" class="result-block table--result-block">
+                    <div class="mat-elevation-z8">
+                        <mat-table #table [dataSource]="dataSource">
+                      
+                          <ng-container matColumnDef="Poster">
+                            <mat-header-cell *matHeaderCellDef> Poster </mat-header-cell>
+                            <mat-cell *matCellDef="let movie">
+                                <div class="p-2">
+                                    <img style="max-height: 100%; width: 100px;" [src]="movie.Poster !== 'N/A' ? movie.Poster : setDefaultPic()"
+                                        (error)="setDefaultPic($event)"
+                                        [alt]="movie.Title">
+                                </div>
+                            </mat-cell>
+                          </ng-container>
+                      
+                          <ng-container matColumnDef="Title">
+                            <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
+                            <mat-cell *matCellDef="let movie"> <h4>{{movie.Title}}</h4> </mat-cell>
+                          </ng-container>
+                      
+                          <ng-container matColumnDef="Type">
+                            <mat-header-cell *matHeaderCellDef> Type </mat-header-cell>
+                            <mat-cell *matCellDef="let movie"> {{movie.Type | titlecase}} </mat-cell>
+                          </ng-container>
+                      
+                          <ng-container matColumnDef="Year">
+                            <mat-header-cell *matHeaderCellDef> Year </mat-header-cell>
+                            <mat-cell *matCellDef="let movie"> {{movie.Year}} </mat-cell>
+                          </ng-container>
+
+                          <ng-container matColumnDef="imdbID">
+                            <mat-header-cell *matHeaderCellDef> IMDB ID </mat-header-cell>
+                            <mat-cell *matCellDef="let movie"> {{movie.imdbID}} </mat-cell>
+                          </ng-container>
+
+                          <ng-container matColumnDef="Detail">
+                            <mat-header-cell *matHeaderCellDef> View Detail </mat-header-cell>
+                            <mat-cell *matCellDef="let movie">
+                                <button (click)="openMovieDetails(movie)" mat-raised-button color="primary">View</button>
+                            </mat-cell>
+                          </ng-container>
+                      
+                          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                        </mat-table>
+                    </div>
+                </section>
+
+                <div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="1000" (scrolled)="onDownScroll()">
+                </div>
+
+                <div *ngIf="!allMoviesFetched">
+                    <ng-container *ngTemplateOutlet="loading"></ng-container>
+                </div>
+
+                <div *ngIf="allMoviesFetched" class="p-3 text-center">
+                    All movies are already displayed !
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template #errorResponse let-response="response">
+            {{response.Error}}
+        </ng-template>
+    </div>
+</div>

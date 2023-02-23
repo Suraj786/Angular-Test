@@ -1,0 +1,85 @@
+{
+  "configVersion": 1,
+  "timestamp": 1677174243780,
+  "index": "/Angular-Test/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/Angular-Test/372.33e4ac44196e6cf2.js",
+        "/Angular-Test/favicon.ico",
+        "/Angular-Test/index.html",
+        "/Angular-Test/main.088b7c196c988fad.js",
+        "/Angular-Test/manifest.webmanifest",
+        "/Angular-Test/polyfills.cc50d64d1cd94295.js",
+        "/Angular-Test/runtime.ff16085977048f70.js",
+        "/Angular-Test/styles.a8812c6b799730ad.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/Angular-Test/assets/icons/icon-128x128.png",
+        "/Angular-Test/assets/icons/icon-144x144.png",
+        "/Angular-Test/assets/icons/icon-152x152.png",
+        "/Angular-Test/assets/icons/icon-192x192.png",
+        "/Angular-Test/assets/icons/icon-384x384.png",
+        "/Angular-Test/assets/icons/icon-512x512.png",
+        "/Angular-Test/assets/icons/icon-72x72.png",
+        "/Angular-Test/assets/icons/icon-96x96.png",
+        "/Angular-Test/assets/no-movie-icon.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/Angular-Test/372.33e4ac44196e6cf2.js": "ac6d5b087906818c97606d3a1bda9bb94746a40f",
+    "/Angular-Test/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
+    "/Angular-Test/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
+    "/Angular-Test/assets/icons/icon-152x152.png": "7479a9477815dfd9668d60f8b3b2fba709b91310",
+    "/Angular-Test/assets/icons/icon-192x192.png": "1abd80d431a237a853ce38147d8c63752f10933b",
+    "/Angular-Test/assets/icons/icon-384x384.png": "329749cd6393768d3131ed6304c136b1ca05f2fd",
+    "/Angular-Test/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
+    "/Angular-Test/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
+    "/Angular-Test/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
+    "/Angular-Test/assets/no-movie-icon.png": "541a7d7d32af8e242a477f10c3b83d50b5c1afdc",
+    "/Angular-Test/favicon.ico": "b72e35a83fc6cddf4b38ad39397f433507207882",
+    "/Angular-Test/index.html": "a566cad528e017e342e2f70e461a429fe8f3b115",
+    "/Angular-Test/main.088b7c196c988fad.js": "ba96400a567631c321eb39c6e5b90a66805fc39b",
+    "/Angular-Test/manifest.webmanifest": "6af30ba9465dfbef4450dcf2fe5680218ddc89fa",
+    "/Angular-Test/polyfills.cc50d64d1cd94295.js": "108c1baf8132d7d07936b5c33424affa5c220c47",
+    "/Angular-Test/runtime.ff16085977048f70.js": "d7e8d52d186bdab9c60e1ac0f95aa2fff933b7a0",
+    "/Angular-Test/styles.a8812c6b799730ad.css": "f227a9e6e7fb7d6d1bf43b7a3dc7fb3e07d382c8"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}

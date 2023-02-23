@@ -1,0 +1,39 @@
+<div *ngIf="movieDetails$ | async as details">
+    <mat-card>
+        <mat-card-title-group>
+          <mat-card-title><strong>{{ details.Title }}</strong></mat-card-title>
+          <mat-card-subtitle><strong>{{ details.Type | titlecase }} | {{ details.Year }} | {{ details.Rated }} | {{ details.Runtime }}</strong></mat-card-subtitle>
+        </mat-card-title-group>
+        <mat-card-content>
+            <div class="row">
+                <div class="col-md-auto">
+                    <img [src]="details.Poster !== 'N/A' ? details.Poster : setDefaultPic()" [alt]="details.Title" (error)="setDefaultPic($event)">
+                    <div class="my-2"><strong>IMDB Rating : {{ details.imdbRating }} | IMDB Votes : {{ details.imdbVotes }}</strong></div>
+                    <div>
+                        <button mat-stroked-button *ngFor="let item of details.Genre.split(',')">{{ item }}</button>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <h5 class="m-b"> {{ (details?.Plot == 'N/A') ? 'Plot description unavailable.' : details.Plot }}</h5>
+                    <mat-list>
+                        <mat-list-item> <strong>Country: </strong> {{ details.Country }} | <strong class="ms-1">Released: </strong> {{ details.Released }} | <strong class="ms-1">Language: </strong> {{ details.Language }} </mat-list-item>
+                        <mat-list-item> <strong>Actors: </strong> {{ details.Actors }} </mat-list-item>
+                        <mat-list-item> <strong>Director: </strong> {{ details.Director }} </mat-list-item>
+                        <mat-list-item> <strong>Writer: </strong> {{ details.Writer }} </mat-list-item>
+                        <mat-list-item> <strong>Awards: </strong> {{ details.Awards }} </mat-list-item>
+                        <mat-list-item *ngFor="let item of details.Ratings"> <strong>{{ item.Source }}: </strong> {{ item.Value }} </mat-list-item>
+                        <mat-list-item> <strong>DVD: </strong> {{ details.DVD }} </mat-list-item>
+                        <mat-list-item> <strong>BoxOffice: </strong> {{ details.BoxOffice }} </mat-list-item>
+                        <mat-list-item> <strong>Production: </strong> {{ details.Production }} </mat-list-item>
+                        <mat-list-item> <strong>Metascore: </strong> {{ details.Metascore }} </mat-list-item>
+                        <mat-list-item> <strong>Website: </strong> {{ details.Website }} </mat-list-item>
+                    </mat-list>
+                    <!-- <p style="word-wrap: break-word; white-space: break-spaces;">{{details | json}}</p> -->
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button (click)="navigateBack()">Back</button>
+        </mat-card-actions>
+      </mat-card>
+</div>
